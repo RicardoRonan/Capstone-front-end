@@ -1,13 +1,16 @@
 <template>
   <Navbar />
   <router-view />
+  <Footer />
 </template>
 <script>
+import Footer from "./components/Footer.vue";
 import Navbar from "./components/Navbar.vue";
 
 export default {
   components: {
     Navbar,
+    Footer,
   },
 };
 </script>
@@ -17,7 +20,15 @@ export default {
   --dark: #273443;
   --green: #075e54;
   --light: #d0e9ea;
-  --light-dark: #128c7e;
+  --light-green: #128c7e;
+}
+body {
+  background: linear-gradient(
+    90deg,
+    var(--light),
+    var(--light-green)
+  ) !important;
+  overflow-x: hidden;
 }
 a {
   text-decoration: none;
@@ -34,14 +45,14 @@ a {
   text-align: center;
   color: #2c3e50;
 }
-/* body,
-html {
-  overflow-x: hidden;
-} */
+
 @media only screen and (max-width: 600px) {
   body,
   html {
     overflow-x: hidden;
   }
+}
+footer {
+  overflow-x: hidden;
 }
 </style>
