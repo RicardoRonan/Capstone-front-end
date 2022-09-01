@@ -32,6 +32,12 @@ const routes = [
     name: "userposts",
     component: () => import("../views/userPostsView.vue"),
   },
+  {
+    path: "/posts/:id",
+    name: "singlepost",
+    component: () => import("../views/singlePost.vue"),
+    props: true,
+  },
 ];
 
 const router = createRouter({

@@ -1,7 +1,5 @@
 <template>
-  <div class="conatiner-fluid" id="bg">
-    <video autoplay muted loop src="../../assets/bgvideo.mp4"></video>
-  </div>
+  <video autoplay muted loop src="../../assets/bgvideo.mp4"></video>
   <div class="card" id="card">
     <h2 class="text-white" id="welcome">welcome to</h2>
     <h1 id="title" class="text-white">Nature Untouched</h1>
@@ -15,6 +13,7 @@
   --light: #d0e9ea;
   --light-green: #128c7e;
 }
+
 video {
   min-height: 100vh;
   width: 100%;
@@ -29,11 +28,12 @@ video {
   font-size: 3rem;
   text-shadow: 4px 4px 4px black;
 }
-body {
+body,
+html {
   background-color: var(--light);
 }
 #bg {
-  background-color: var(--light);
+  background: linear-gradient(90deg, var(--light), var(--light-green));
 }
 #welcome {
   font-size: 3rem;
@@ -51,19 +51,43 @@ body {
   background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65));
 }
 @media only screen and (max-width: 600px) {
-  #welcome {
-    font-size: 2rem;
-    font-weight: 500;
-    text-shadow: 3px 3px 3px black;
-  }
-  #title {
-    font-size: 3rem;
-    font-weight: 100;
-    text-shadow: 3px 3px 3px black;
-  }
   .title-cont {
     z-index: 2;
     margin-top: -106%;
+  }
+
+  video {
+    display: none;
+  }
+  body {
+    background-color: var(--light);
+  }
+  #bg {
+    background-image: url("https://i.postimg.cc/90WBgqJ2/Polina-Tepliuk-Flora-2021-Flowers-ph.jpg");
+    z-index: -1;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+  }
+  #slogan {
+    color: var(--light);
+    font-size: 1rem;
+  }
+  #welcome {
+    font-size: 1rem;
+  }
+  #title {
+    font-size: 3rem;
+  }
+  #card {
+    z-index: 2;
+    /* padding: 10px; */
+    margin: 10px;
+    margin-top: -159%;
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65));
+    height: 28rem;
   }
 }
 </style>

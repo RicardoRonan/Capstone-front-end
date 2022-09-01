@@ -9,9 +9,15 @@
 export default {};
 </script>
 <style scoped>
+:root {
+  --dark: #273443;
+  --green: #075e54;
+  --light: #d0e9ea;
+  --light-green: #128c7e;
+}
 #Footer {
   height: 10rem;
-  background-color: var(--light);
+  background-color: var(--light-green);
   border-top: 1px solid var(--dark);
   color: var(--grey);
   display: flex;

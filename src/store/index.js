@@ -8,7 +8,6 @@ export default createStore({
     posts: null,
     jwt: null,
   },
-  getters: {},
   mutations: {
     setJwt: (state, jwt) => {
       state.jwt = jwt;
@@ -27,45 +26,52 @@ export default createStore({
     },
   },
   actions: {
+    // single post
+    getPost: async (context, id) => {
+      fetch("https://nature-ly-api.herokuapp.com/posts/" + id)
+        .then((response) => response.json())
+        .then((data) => context.commit("setPost", data));
+    },
+    // login
+    login: async (context, payload) => {
+      fetch(`https://nature-ly-api.herokuapp.com/users/login`, {
+        method: "POST",
+        body: JSON.stringify({
+          email: payload.email,
+          password: payload.password,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+
+      let data = await res.json();
+      console.log(data);
+      if (data.jwt) {
+        context.commit("setToken", data.jwt);
+        // Verify token
+        fetch("https://nature-ly-api.herokuapp.com/users/users/verify", {
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": data.jwt,
+          },
+        })
+          .then((res) => res.json())
+          .then((user) => {
+            context.commit("setUser", user);
+            router.push("/");
+          });
+      } else {
+        alert("User not found");
+      }
+    },
+
     // posts
     // Get all posts
     getPosts: async (context) => {
-      fetch("http://localhost:1738/posts")
+      fetch("https://nature-ly-api.herokuapp.com/posts")
         .then((response) => response.json())
         .then((data) => context.commit("setPosts", data));
     },
   },
-  // login
-  login: async (context, payload) => {
-    fetch(`http://localhost:1738/users/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        email: payload.email,
-        password: payload.password,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    });
-    let data = await res.json();
-    console.log(data);
-    if (data.token) {
-      context.commit("setToken", data.token);
-      // Verify token
-      fetch("http://localhost:1738/users/users/verify", {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": data.token,
-        },
-      })
-        .then((res) => res.json())
-        .then((user) => {
-          context.commit("setUser", user);
-          router.push("/");
-        });
-    } else {
-      alert("User not found");
-    }
-  },
-  modules: {},
 });

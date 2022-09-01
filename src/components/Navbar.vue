@@ -20,7 +20,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 :root {
   --dark: #273443;
   --green: #075e54;
@@ -77,7 +77,8 @@ a {
   color: var(--light) !important;
 }
 #navbar a.router-link-exact-active {
-  color: var(--dark) !important;
+  color: var(--light-green) !important;
+  border-bottom: 2px solid var(--dark);
 }
 
 .fa {
@@ -132,7 +133,7 @@ export default {
   },
   methods: {
     display() {
-      console.log("clicked");
+      // console.log("clicked");
       this.show = !this.show;
     },
   },
