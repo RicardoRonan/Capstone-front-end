@@ -8,13 +8,13 @@
     <div class="bar-items" :class="{ hide: !show }">
       <div id="menu">
         <RouterLink to="/" v-on:click="display"> Home </RouterLink>
-        <RouterLink to="/about" v-on:click="display"> About </RouterLink>
         <RouterLink to="/posts" v-on:click="display"> Posts </RouterLink>
         <RouterLink to="/userposts" v-on:click="display"
           >Your Posts
         </RouterLink>
         <RouterLink to="/login" v-on:click="display">Login </RouterLink>
         <RouterLink to="/register" v-on:click="display">Register </RouterLink>
+        <RouterLink to="/contact" v-on:click="display"> Contact </RouterLink>
       </div>
     </div>
   </div>
