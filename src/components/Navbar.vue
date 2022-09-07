@@ -5,21 +5,52 @@
       <i class="fa fa-navicon" v-on:click="display"></i>
     </div>
 
-    <div class="bar-items" :class="{ hide: !show }">
-      <div id="menu">
-        <RouterLink to="/" v-on:click="display"> Home </RouterLink>
-        <RouterLink to="/posts" v-on:click="display"> Posts </RouterLink>
-        <RouterLink to="/userposts" v-on:click="display"
-          >Your Posts
-        </RouterLink>
-        <RouterLink to="/login" v-on:click="display">Login </RouterLink>
-        <RouterLink to="/register" v-on:click="display">Register </RouterLink>
-        <RouterLink to="/contact" v-on:click="display"> Contact </RouterLink>
+    <transition name="fade">
+      <div class="bar-items" :class="{ hide: !show }">
+        <div id="menu">
+          <RouterLink to="/" v-on:click="display"> Home </RouterLink>
+          <RouterLink to="/posts" v-on:click="display"> Posts </RouterLink>
+          <RouterLink v-if="user" to="/userposts" v-on:click="display"
+            >Your Posts
+          </RouterLink>
+          <RouterLink to="/contact" v-on:click="display"> Contact </RouterLink>
+
+          <RouterLink
+            v-if="user"
+            :to="{ name: 'profile', params: { id: user.user.user_id } }"
+            v-on:click="display"
+          >
+            Profile
+          </RouterLink>
+          <div class="d-flex flex-row" v-else>
+            <RouterLink to="/login" v-on:click="display">Login </RouterLink>
+            <RouterLink to="/register" v-on:click="display"
+              >Register
+            </RouterLink>
+          </div>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
-
+<script>
+export default {
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
+  data() {
+    return { show: false };
+  },
+  methods: {
+    display() {
+      // console.log("clicked");
+      this.show = !this.show;
+    },
+  },
+};
+</script>
 <style scoped>
 :root {
   --dark: #273443;
@@ -44,7 +75,6 @@ h1 {
 }
 
 #navbar {
-  transition: max-height 0.5s ease;
   display: flex;
   align-items: center;
   background-color: var(--green);
@@ -53,6 +83,7 @@ h1 {
   position: fixed;
   top: 0;
   box-shadow: 3px 3px 3px var(--light-green);
+  transition: all 0.5s linear ease-in-out;
 }
 
 #menu {
@@ -80,6 +111,14 @@ a {
   color: var(--light-green) !important;
   border-bottom: 2px solid var(--dark);
 }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 
 .fa {
   display: none;
@@ -87,8 +126,8 @@ a {
 
 @media (max-width: 675px) {
   #navbar {
+    transition: all 0.5s linear ease-in-out !important;
     flex-direction: column;
-    transition: max-height 0.5s ease;
   }
 
   .fa {
@@ -124,18 +163,13 @@ a {
     justify-content: start;
     padding: 15px 0px;
   }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s ease;
+  }
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
 }
 </style>
-<script>
-export default {
-  data() {
-    return { show: false };
-  },
-  methods: {
-    display() {
-      // console.log("clicked");
-      this.show = !this.show;
-    },
-  },
-};
-</script>

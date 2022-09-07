@@ -31,11 +31,24 @@ const routes = [
     path: "/userposts",
     name: "userposts",
     component: () => import("../views/userPostsView.vue"),
+    props: true,
   },
   {
     path: "/posts/:id",
     name: "singlepost",
     component: () => import("../views/singlePost.vue"),
+    props: true,
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: () => import("../views/Admin.vue"),
+    props: true,
+  },
+  {
+    path: "/profile/:id",
+    name: "profile",
+    component: () => import("../views/Profile.vue"),
     props: true,
   },
 ];

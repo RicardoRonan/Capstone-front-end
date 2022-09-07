@@ -25,8 +25,15 @@
             <span class="button__text">Log In Now</span>
             <i class="button__icon fas fa-chevron-right"></i>
           </button>
+          <p id="new" class="m-3 mx-auto">
+            New to Nature Untouched<router-link class="p-3" to="/register"
+              >register</router-link
+            >now
+          </p>
         </form>
-        <div v-if="user">welcome {{ user.Email }}</div>
+        <div v-if="user">
+          <h1 id="welcome">welcome {{ user.user.user_name }}</h1>
+        </div>
       </div>
       <div class="screen__background">
         <span
@@ -56,7 +63,7 @@ export default {
     },
   },
 
-  daat() {
+  data() {
     return {
       email: "",
       password: "",
@@ -68,6 +75,7 @@ export default {
         email: this.email,
         password: this.password,
       });
+      this.$router.push("/posts");
     },
   },
 };
@@ -75,6 +83,15 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
 
+#welcome {
+  color: var(--dark);
+}
+#new {
+  color: var(--dark);
+}
+a {
+  color: var(--light);
+}
 :root {
   --dark: #273443;
   --light-green: #128c7e;

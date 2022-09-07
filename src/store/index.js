@@ -1,16 +1,16 @@
 import { createStore } from "vuex";
-
+import createPersistedState from "vuex-persistedstate";
 export default createStore({
   state: {
     users: null,
     user: null,
     post: null,
     posts: null,
-    jwt: null,
+    token: null,
   },
   mutations: {
-    setJwt: (state, jwt) => {
-      state.jwt = jwt;
+    setToken: (state, token) => {
+      state.token = token;
     },
     setUser: (state, user) => {
       state.user = user;
@@ -24,17 +24,21 @@ export default createStore({
     setPosts: (state, posts) => {
       state.posts = posts;
     },
+    logout(state) {
+      (state.user = ""), (state.token = ""), (state.users = "");
+    },
   },
   actions: {
     // single post
     getPost: async (context, id) => {
+      console.log(user.user);
       fetch("https://nature-ly-api.herokuapp.com/posts/" + id)
         .then((response) => response.json())
         .then((data) => context.commit("setPost", data));
     },
     // login
     login: async (context, payload) => {
-      fetch(`https://nature-ly-api.herokuapp.com/users/login`, {
+      let res = await fetch(`https://nature-ly-api.herokuapp.com/users/login`, {
         method: "POST",
         body: JSON.stringify({
           email: payload.email,
@@ -47,19 +51,20 @@ export default createStore({
 
       let data = await res.json();
       console.log(data);
-      if (data.jwt) {
-        context.commit("setToken", data.jwt);
+      if (data.token) {
+        context.commit("setToken", data.token);
         // Verify token
         fetch("https://nature-ly-api.herokuapp.com/users/users/verify", {
           headers: {
             "Content-Type": "application/json",
-            "x-auth-token": data.jwt,
+            "x-auth-token": data.token,
           },
         })
           .then((res) => res.json())
           .then((user) => {
             context.commit("setUser", user);
-            router.push("/");
+            console.log(user);
+            context.dispatch("getPost", user);
           });
       } else {
         alert("User not found");
@@ -73,5 +78,66 @@ export default createStore({
         .then((response) => response.json())
         .then((data) => context.commit("setPosts", data));
     },
+    register: async (context, user) => {
+      await fetch("https://nature-ly-api.herokuapp.com/users/register", {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => context.commit("setUsers", json));
+    },
+
+    // get single user
+    getUser: async (context, id) => {
+      fetch("https://nature-ly-api.herokuapp.com/users/" + id)
+        .then((response) => response.json())
+        .then((data) => context.commit("setUser", data));
+    },
+    // add new post
+    addPost: async (context, payload) => {
+      const { user_id, image_title, caption, image } = payload;
+      fetch("https://nature-ly-api.herokuapp.com/posts", {
+        method: "POST",
+        body: JSON.stringify({
+          user_id: user_id,
+          image_title: image_title,
+          caption: caption,
+          image: image,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then(() => context.dispatch("getPosts"));
+    },
+    //  edit user
+    updateUser: async (context, user) => {
+      const { user_name, img, bio, email } = user;
+      fetch("https://nature-ly-api.herokuapp.com/users/" + id, {
+        method: "PUT",
+        body: JSON.stringify({
+          user_name: user_name,
+          img: img,
+          bio: bio,
+          email: email,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then(() => context.dispatch("getUsers"));
+    },
   },
+  // delete user
+  deleteUser: async (context, id) => {
+    fetch("https://nature-ly-api.herokuapp.com/users" + id, {
+      method: "DELETE",
+    }).then(() => context.dispatch("getUsers"));
+  },
+  plugins: [createPersistedState()],
 });

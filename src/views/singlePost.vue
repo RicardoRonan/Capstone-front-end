@@ -10,13 +10,14 @@
       <div class="col-lg-6" id="left-image">
         <img id="single-img" class="pt-3" :src="post.image" alt="" />
       </div>
-      <div class="col-lg-6" id="right-info">
+      <div class="col-lg-6 text-light" id="right-info">
         <h2>{{ post.image_title }}</h2>
         <p>{{ post.category }}</p>
         <p>{{ post.caption }}</p>
       </div>
     </div>
   </div>
+  <div v-else><h1>loading...</h1></div>
 </template>
 
 <script>
@@ -45,8 +46,10 @@ export default {
   padding-top: 2rem;
 }
 #single-img {
-  height: fit-content;
+  height: 100%;
+  width: 100%;
   object-fit: cover;
+  border-radius: 2rem;
   aspect-ratio: 1;
 }
 </style>

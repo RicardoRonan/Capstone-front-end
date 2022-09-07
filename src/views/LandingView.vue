@@ -31,11 +31,7 @@
           class="screen__background__shape screen__background__shape4"
         ></span>
         <div id="img">
-          <img
-            id="tree"
-            src="https://i.postimg.cc/hvTfRzs6/tree.png  "
-            alt=""
-          />
+          <img id="tree" src="https://i.postimg.cc/hvTfRzs6/tree.png" alt="" />
         </div>
         <div id="paragraph" class="p-2 mx-auto">
           <p>

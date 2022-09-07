@@ -1,5 +1,8 @@
 <template>
-  <Navbar />
+  <!-- <router-view v-slot="{ }"> -->
+  <transition name="scale-slide">
+    <Navbar />
+  </transition>
   <router-view />
   <Footer />
 </template>
@@ -31,7 +34,7 @@ body {
   overflow-x: hidden;
 }
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 @font-face {
   font-family: yees;

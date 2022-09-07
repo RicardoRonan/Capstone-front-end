@@ -2,7 +2,11 @@
   <div class="container">
     <div class="screen">
       <div class="screen__content">
-        <form class="register">
+        <div v-if="users">
+          <h1 id="thanks">Thank you for registering</h1>
+          <h2 id="login" class="text-light">Please proceed to login page</h2>
+        </div>
+        <form v-else class="register" @submit.prevent="register">
           <div class="register__field">
             <i class="register__icon fas fa-user"></i>
             <input
@@ -10,24 +14,33 @@
               class="register__input"
               placeholder="UserName"
               required
+              v-model="user_name"
             />
+          </div>
+          <div class="register__field_1">
+            <div class="info">
+              <input
+                type="text"
+                class="register__input"
+                placeholder="img url"
+                required
+                v-model="img"
+              />
+              <i
+                @click="Swal.fire()"
+                id="question"
+                class="fa-solid fa-circle-question"
+              ></i>
+            </div>
           </div>
           <div class="register__field">
             <i class="register__icon fas fa-user"></i>
             <input
-              type="text"
-              class="register__input"
-              placeholder="img url"
-              required
-            />
-          </div>
-          <div class="register__field">
-            <i class="register__icon fas fa-user"></i>
-            <input
-              type="text"
+              type="email"
               class="register__input"
               placeholder="Email"
               required
+              v-model="email"
             />
           </div>
           <div class="register__field">
@@ -37,6 +50,7 @@
               class="register__input"
               placeholder="Bio"
               required
+              v-model="bio"
             />
           </div>
           <div class="register__field">
@@ -46,9 +60,14 @@
               class="register__input"
               placeholder="Password"
               required
+              v-model="password"
             />
           </div>
-          <button class="button register__submit">
+          <button
+            class="button register__submit"
+            @click="Toast.fire()"
+            type="submit"
+          >
             <span class="button__text">Register Now</span>
             <i class="button__icon fas fa-chevron-right"></i>
           </button>
@@ -75,11 +94,86 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+    users() {
+      return this.$store.state.users;
+    },
+  },
+  data() {
+    const user_type = "user";
+    return {
+      user_name: "",
+      email: "",
+      password: "",
+      user_type: "",
+      img: "",
+      bio: "",
+    };
+  },
+  methods: {
+    register() {
+      this.$store.dispatch("register", {
+        user_name: this.user_name,
+        email: this.email,
+        password: this.password,
+        user_type: this.user_type,
+        img: this.img,
+        bio: this.bio,
+      });
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "success",
+        title: "Signed up successfully",
+      });
+      this.$router.push("/login");
+    },
+  },
+};
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
-
+#thanks {
+  font-size: 5rem;
+  margin-top: 13rem;
+  color: white;
+  text-shadow: 0px 0px 24px black;
+}
+#login {
+  text-shadow: 0px 0px 12px black;
+}
+#question {
+  color: var(--dark);
+  font-size: 1.5rem;
+  filter: drop-shadow(0px 0px 24px var(--dark));
+}
 :root {
   --dark: #273443;
   --light-green: #128c7e;
@@ -201,6 +295,17 @@ body {
   padding-left: 24px;
   font-weight: 700;
   width: 75%;
+  transition: 0.2s;
+  color: var(--dark);
+}
+.register__input_1 {
+  border: none;
+  border-bottom: 2px solid #d1d1d4;
+  background: none;
+  padding: 10px;
+  padding-left: 24px;
+  font-weight: 700;
+  width: 50%;
   transition: 0.2s;
   color: var(--dark);
 }
