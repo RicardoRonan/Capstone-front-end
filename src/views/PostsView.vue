@@ -1,6 +1,6 @@
 <template>
-  <div class="home m-4" v-if="posts">
-    <h1>Check out the posts...</h1>
+  <div class="post m-5" v-if="posts">
+    <h1 class="pt-5">Check out the posts...</h1>
     <div class="shape"></div>
     <div class="search-bar-cont mx-auto">
       <select id="sort" value="Sortby" class="m-3 mx-auto">
@@ -12,7 +12,9 @@
       </select>
       <form action="" class="search-bar mx-auto m-2">
         <input type="text" name="q" placeholder="Search Anything" />
-        <button type="submit"><i class="fas fa-search"></i></button>
+        <button type="submit" id="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
       </form>
     </div>
     <div class="row">
@@ -115,6 +117,7 @@ input {
   padding: 6px 10px;
   font-size: 20px;
   color: var(--dark);
+  padding-left: 2px;
 }
 
 ::placeholder {
@@ -171,5 +174,10 @@ img:hover {
   display: block;
   mix-blend-mode: soft-light;
   background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65));
+}
+@media only screen and (max-width: 600px) {
+  button#search-btn {
+    margin-left: -4.5rem;
+  }
 }
 </style>

@@ -92,8 +92,8 @@ iframe {
   position: absolute;
   left: 0px;
   right: 0px;
-  /* top: 29rem; */
   overflow: hidden;
+  background-attachment: fixed;
 }
 :root {
   --dark: #273443;
@@ -142,7 +142,7 @@ a {
   min-height: 100vh;
 }
 #about {
-  min-height: 100vh;
+  min-height: 80vh;
 }
 
 #slogan {
