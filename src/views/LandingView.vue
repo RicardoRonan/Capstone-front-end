@@ -1,11 +1,30 @@
 <template>
   <section id="landing">
-    <video autoplay muted loop src="../../assets/bgvideo.mp4"></video>
+    <div
+      id="video-cont"
+      style="
+        width: 100%;
+        height: 0px;
+        position: relative;
+        padding-bottom: 56.25%;
+      "
+      class="mx-auto"
+    >
+      <iframe
+        src="https://streamable.com/e/jwoknh?autoplay=1&nocontrols=1"
+        frameborder="0"
+        width="100%"
+        height="100%"
+        allowfullscreen
+        allow="autoplay"
+      ></iframe>
+    </div>
     <div class="card" id="card">
       <h2 class="text-white" id="welcome">welcome to</h2>
       <h1 id="title" class="text-white">Nature Untouched</h1>
       <p id="slogan">What's in your Nature?</p>
-      <div id="button-cont" class="mb-5">
+      <div v-if="user"></div>
+      <div v-if="!user" id="button-cont" class="mb-5">
         <router-link to="/login">
           <button class="landing-button" type="submit">
             <span class="button__text">Log In</span>
@@ -58,6 +77,15 @@
     </div>
   </section>
 </template>
+<script>
+export default {
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
+};
+</script>
 <style scoped>
 :root {
   --dark: #273443;
@@ -241,26 +269,48 @@ html {
   z-index: 2;
 }
 @media only screen and (max-width: 600px) {
+  #paragraph2 {
+    margin-top: 0.5rem;
+    width: 15rem;
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--light);
+    z-index: 2;
+  }
+  #left {
+    margin-top: 93%;
+  }
+  .screen__background__shape3 {
+    display: none;
+  }
+  #paragraph {
+    word-break: keep-all;
+    width: 15rem;
+    display: flex;
+    color: var(--light);
+    z-index: 2;
+  }
+  iframe {
+    width: 94%;
+    height: 100%;
+    position: absolute;
+    left: 10px;
+    right: 0px;
+    top: 29rem;
+    overflow: hidden;
+  }
+  div #button-cont {
+    flex-wrap: wrap;
+    gap: 0px;
+  }
   .title-cont {
     z-index: 2;
     margin-top: -106%;
   }
-
-  video {
-    display: none;
-  }
   body {
     background-color: var(--light);
   }
-  #bg {
-    background-image: url("https://i.postimg.cc/90WBgqJ2/Polina-Tepliuk-Flora-2021-Flowers-ph.jpg");
-    z-index: -1;
-    background-position: center;
-    background-attachment: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-  }
+
   #slogan {
     color: var(--light);
     font-size: 1rem;
@@ -273,11 +323,21 @@ html {
   }
   #card {
     z-index: 2;
-    /* padding: 10px; */
     margin: 10px;
-    margin-top: -159%;
+    margin-top: -36%;
     background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65));
-    height: 28rem;
+    height: 24rem;
+  }
+  #display-card {
+    position: relative;
+    width: 93%;
+    height: 31.5rem;
+    margin: 10rem;
+    margin-top: 2rem;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--light-green), var(--dark));
+    box-shadow: 0px 0px 24px var(--green);
+    z-index: 2;
   }
 }
 </style>

@@ -7,6 +7,7 @@ export default createStore({
     post: null,
     posts: null,
     token: null,
+    // userPost: null,
   },
   mutations: {
     setToken: (state, token) => {
@@ -24,6 +25,9 @@ export default createStore({
     setPosts: (state, posts) => {
       state.posts = posts;
     },
+    // setuserPost: (state, userPost) => {
+    //   state.userPost = userPost;
+    // },
     logout(state) {
       (state.user = ""), (state.token = ""), (state.users = "");
     },
@@ -31,7 +35,6 @@ export default createStore({
   actions: {
     // single post
     getPost: async (context, id) => {
-      console.log(user.user);
       fetch("https://nature-ly-api.herokuapp.com/posts/" + id)
         .then((response) => response.json())
         .then((data) => context.commit("setPost", data));
@@ -132,12 +135,19 @@ export default createStore({
         .then((response) => response.json())
         .then(() => context.dispatch("getUsers"));
     },
+
+    // delete user
+    deleteUser: async (context, id) => {
+      fetch("https://nature-ly-api.herokuapp.com/users" + id, {
+        method: "DELETE",
+      }).then(() => context.dispatch("getUsers"));
+    },
+    getUserpost: async (context, id) => {
+      fetch("https://nature-ly-api.herokuapp.com/users/" + id + "/post")
+        .then((response) => response.json())
+        .then((data) => context.commit("getUser", data));
+    },
   },
-  // delete user
-  deleteUser: async (context, id) => {
-    fetch("https://nature-ly-api.herokuapp.com/users" + id, {
-      method: "DELETE",
-    }).then(() => context.dispatch("getUsers"));
-  },
+
   plugins: [createPersistedState()],
 });
