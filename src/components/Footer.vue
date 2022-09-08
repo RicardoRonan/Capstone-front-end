@@ -22,7 +22,8 @@ export default {};
   color: var(--grey);
   display: flex;
   align-items: center;
-  position: fixed;
+  position: relative;
   bottom: 0;
+  width: 100%;
 }
 </style>

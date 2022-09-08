@@ -10,7 +10,7 @@
       data-bs-toggle="modal"
       data-bs-target="#exampleModal"
     >
-      Add Product
+      Add post
     </button>
 
     <!-- Add Modal -->
@@ -35,7 +35,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="createproduct" id="modal-form" class="p-2">
+            <form @submit.prevent="createpost" id="modal-form" class="p-2">
               <input type="text" id="sku-add" placeholder="Sku" v-model="sku" />
               <input
                 type="text"
@@ -100,7 +100,7 @@
               <button
                 type="btn"
                 class="btn btn-outline-dark"
-                @click="createproduct"
+                @click="createpost"
               >
                 Create Candle
               </button>
@@ -124,17 +124,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="product in posts" :key="product.product_id">
-          <td>{{ product.id }}</td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.category }}</td>
-          <td>{{ product.description }}</td>
+        <tr v-for="post in posts" :key="post.post_id">
+          <td>{{ post.id }}</td>
+          <td>{{ post.name }}</td>
+          <td>{{ post.category }}</td>
+          <td>{{ post.description }}</td>
           <td>
-            <img v-bind:src="product.image" class="product.img" />
+            <img v-bind:src="post.image" class="post.img" />
           </td>
-          <td>{{ product.price }}</td>
-          <td>{{ product.stock }}</td>
-          <!-- <td>{{ product.category }}</td> -->
+          <td>{{ post.price }}</td>
+          <td>{{ post.stock }}</td>
+          <!-- <td>{{ post.category }}</td> -->
           <td>
             <button type="btn">
               <i
@@ -144,7 +144,7 @@
                 @click="toggleModal"
               ></i>
             </button>
-            <button type="btn" @click="deleteproduct">
+            <button type="btn" @click="deletepost">
               <i class="fa-solid fa-trash-can"></i>
             </button>
           </td>
@@ -169,7 +169,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in users" :key="user.user_id">
+        <tr v-for="user in users" :key="user.user.user_id">
           <td>{{ user.id }}</td>
           <td>{{ user.full_name }}</td>
           <td>{{ user.email }}</td>
@@ -220,8 +220,8 @@ export default {
     };
   },
   methods: {
-    createproduct() {
-      return this.$store.dispatch("createproduct", {
+    createpost() {
+      return this.$store.dispatch("createpost", {
         sku: this.sku,
         name: this.name,
         price: this.price,
@@ -234,17 +234,17 @@ export default {
       });
       //   console.log("posts");
     },
-    product() {
-      return this.$store.state.product;
+    post() {
+      return this.$store.state.post;
     },
     user() {
       return this.$store.state.user;
     },
-    editproduct(id) {
-      return this.$store.dispatch("editproduct", id);
+    editpost(id) {
+      return this.$store.dispatch("editpost", id);
     },
-    deleteproduct(id) {
-      return this.$store.dispatch("deleteproduct", id);
+    deletepost(id) {
+      return this.$store.dispatch("deletepost", id);
     },
   },
   mounted() {
