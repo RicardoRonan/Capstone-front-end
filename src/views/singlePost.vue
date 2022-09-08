@@ -1,7 +1,7 @@
 <template>
   <div class="conatiner-fluid" v-if="post">
     <div
-      class="row m-5 container-fluid"
+      class="row m-4 container-fluid"
       v-for="post of post"
       :key="post.post_id"
       :post="post"
@@ -89,5 +89,13 @@ export default {
   font-size: 2rem;
   padding: 4px;
   color: var(--light);
+}
+@media only screen and (max-width: 600px) {
+  #single-img {
+    height: 15rem;
+  }
+  #right-info {
+    margin-top: 1rem;
+  }
 }
 </style>
