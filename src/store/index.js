@@ -147,6 +147,37 @@ export default createStore({
         .then((response) => response.json())
         .then((data) => context.commit("getUser", data));
     },
+    createpost: async (context, posts) => {
+      // console.log(product);
+      fetch("https://nature-ly-api.herokuapp.com/posts", {
+        method: "POST",
+        body: JSON.stringify(posts),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((posts) => {
+          console.log(posts);
+          context.dispatch("getPosts", posts);
+        });
+    },
+    deletePost: async (context, id) => {
+      const res = await fetch(
+        "https://nature-ly-api.herokuapp.com/posts/" + id,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((del) => {
+          context.dispatch("getPosts");
+          // console.log(del);
+        });
+    },
   },
 
   plugins: [createPersistedState()],

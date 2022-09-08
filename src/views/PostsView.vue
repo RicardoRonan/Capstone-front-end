@@ -4,11 +4,11 @@
     <div class="shape"></div>
     <div class="search-bar-cont mx-auto">
       <select id="sort" value="Sortby" class="m-3 mx-auto">
-        <option name="flowers" id="">Flower</option>
-        <option name="mountains" id="">Mountains</option>
-        <option name="waterfall" id="">Waterfall</option>
-        <option name="clouds" id="">Clouds</option>
-        <option name="trees" id="">Trees</option>
+        <option value="flowers" name="flowers" id="">Flower</option>
+        <option value="mountains" name="mountains" id="">Mountains</option>
+        <option value="waterfall" name="waterfall" id="">Waterfall</option>
+        <option value="clouds" name="clouds" id="">Clouds</option>
+        <option value="trees" name="trees" id="">Trees</option>
       </select>
       <form action="" class="search-bar mx-auto m-2">
         <input type="text" name="q" placeholder="Search Anything" />

@@ -37,6 +37,7 @@
           </button>
         </router-link>
       </div>
+      b -->
     </div>
   </section>
   <section id="about">
@@ -83,6 +84,11 @@ export default {
       return this.$store.state.user;
     },
   },
+  // methods: {
+  //   logout() {
+  //     this.$store.commit("logout");
+  //   },
+  // },
 };
 </script>
 <style scoped>
