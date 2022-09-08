@@ -8,7 +8,6 @@
         position: relative;
         padding-bottom: 56.25%;
       "
-      class="mx-auto"
     >
       <iframe
         src="https://streamable.com/e/jwoknh?autoplay=1&nocontrols=1"
@@ -87,6 +86,15 @@ export default {
 };
 </script>
 <style scoped>
+iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  /* top: 29rem; */
+  overflow: hidden;
+}
 :root {
   --dark: #273443;
   --green: #075e54;
@@ -137,15 +145,6 @@ a {
   min-height: 100vh;
 }
 
-video {
-  min-height: 100vh;
-  width: 100%;
-  z-index: -1;
-  background-position: center;
-  background-attachment: fixed;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
 #slogan {
   color: var(--light);
   font-size: 3rem;

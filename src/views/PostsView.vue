@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <div v-else class="loader"></div>
+  <div v-if="!posts" class="loader"></div>
 </template>
 
 <script>
