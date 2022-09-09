@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="profile-cont">
-      <div class="row">
+      <div class="row container-fluid">
         <img id="profileImg" class="mx-auto m-3" :src="user.user.img" alt="" />
         <div class="profile-details">
           <editModal :user="user" />
@@ -9,9 +9,11 @@
             class="fa-solid fa-trash"
             @click="deleteUser(user.user.user_id)"
           ></i>
-          <h1>{{ user.user.user_name }}</h1>
-          <p>{{ user.user.email }}</p>
-          <p>{{ user.user.bio }}</p>
+          <div class="info-cont mx-auto text-center">
+            <h1 class="mx-auto">{{ user.user.user_name }}</h1>
+            <p>{{ user.user.email }}</p>
+            <p>{{ user.user.bio }}</p>
+          </div>
         </div>
         <div class="btn-cont d-flex">
           <button id="profile-btn" class="mx-auto m-4" @click="logout()">
@@ -123,5 +125,18 @@ a:hover {
   justify-content: center;
   min-height: 100vh;
   margin-top: 2rem;
+}
+@media only screen and (max-width: 600px) {
+  #profileImg {
+    width: 90%;
+  }
+  .profile-cont {
+    margin: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+  #profile-btn {
+    width: 43%;
+  }
 }
 </style>

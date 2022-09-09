@@ -8,7 +8,11 @@
             <div class="inner-column">
               <!--Contact Form-->
               <div class="contact-form">
-                <form method="post" id="contact-form">
+                <form
+                  action="https://formspree.io/f/xbjbdpey"
+                  method="POST"
+                  id="contact-form"
+                >
                   <div class="row clearfix">
                     <div class="form-group col-md-6 col-sm-6 co-xs-12 mb-3">
                       <input

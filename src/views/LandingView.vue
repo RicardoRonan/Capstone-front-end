@@ -37,7 +37,6 @@
           </button>
         </router-link>
       </div>
-      b -->
     </div>
   </section>
   <section id="about">
@@ -68,6 +67,9 @@
             The aim of our website is to create a judgement free platform where
             people can share their images of nature.
           </p>
+          <!-- <button id="profile-btn" class="mx-auto m-4" @click="logout()">
+            Logout
+          </button> -->
         </div>
       </div>
     </div>
@@ -84,11 +86,11 @@ export default {
       return this.$store.state.user;
     },
   },
-  // methods: {
-  //   logout() {
-  //     this.$store.commit("logout");
-  //   },
-  // },
+  methods: {
+    logout() {
+      this.$store.commit("logout");
+    },
+  },
 };
 </script>
 <style scoped>

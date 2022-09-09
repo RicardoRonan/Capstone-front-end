@@ -7,7 +7,7 @@ export default createStore({
     post: null,
     posts: null,
     token: null,
-    // userPost: null,
+    userPost:[],
   },
   mutations: {
     setToken: (state, token) => {
@@ -25,20 +25,20 @@ export default createStore({
     setPosts: (state, posts) => {
       state.posts = posts;
     },
-    // setuserPost: (state, userPost) => {
-    //   state.userPost = userPost;
-    // },
+    setuserPost: (state, userPost) => {
+      state.userPost = userPost;
+    },
     logout(state) {
       (state.user = ""), (state.token = ""), (state.users = "");
     },
   },
   actions: {
     // single post
-    getPost: async (context, id) => {
-      fetch("https://nature-ly-api.herokuapp.com/posts/" + id)
-        .then((response) => response.json())
-        .then((data) => context.commit("setPost", data));
-    },
+    // getPost: async (context, id) => {
+    //   fetch("https://nature-ly-api.herokuapp.com/posts/" + id)
+    //     .then((response) => response.json())
+    //     .then((data) => context.commit("setPost", data));
+    // },
     // login
     login: async (context, payload) => {
       let res = await fetch(`https://nature-ly-api.herokuapp.com/users/login`, {
@@ -145,8 +145,9 @@ export default createStore({
     getUserpost: async (context, id) => {
       fetch("https://nature-ly-api.herokuapp.com/users/" + id + "/post")
         .then((response) => response.json())
-        .then((data) => context.commit("getUser", data));
+        .then((data) => context.commit("setuserPost", data));
     },
+
     createpost: async (context, posts) => {
       // console.log(product);
       fetch("https://nature-ly-api.herokuapp.com/posts", {
@@ -162,21 +163,10 @@ export default createStore({
           context.dispatch("getPosts", posts);
         });
     },
-    deletePost: async (context, id) => {
-      const res = await fetch(
-        "https://nature-ly-api.herokuapp.com/posts/" + id,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-      )
-        .then((res) => res.json())
-        .then((del) => {
-          context.dispatch("getPosts");
-          // console.log(del);
-        });
+    deletePost: async (context, post) => {
+      fetch("https://nature-ly-api.herokuapp.com/posts" + post.id, {
+        method: "DELETE",
+      }).then(() => context.dispatch("getPost"));
     },
   },
 

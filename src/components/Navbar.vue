@@ -7,7 +7,7 @@
 
     <transition name="fade">
       <div class="bar-items" :class="{ hide: !show }">
-        <div id="menu">
+        <div id="menu" class="animate__animated animate__backInDown">
           <RouterLink to="/" v-on:click="display"> Home </RouterLink>
           <RouterLink to="/posts" v-on:click="display"> Posts </RouterLink>
           <RouterLink v-if="user" to="/userposts" v-on:click="display"
@@ -110,6 +110,7 @@ a {
 #navbar a.router-link-exact-active {
   color: var(--light-green) !important;
   border-bottom: 2px solid var(--dark);
+  /* border-bottom-width: 2rem; */
 }
 .fade-enter-active,
 .fade-leave-active {
@@ -143,6 +144,9 @@ a {
   #menu {
     flex-direction: column;
     padding: 5px 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: flex-start;
   }
 
   a {

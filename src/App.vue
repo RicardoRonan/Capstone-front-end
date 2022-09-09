@@ -1,8 +1,5 @@
 <template>
-  <!-- <router-view v-slot="{ }"> -->
-  <transition name="scale-slide">
-    <Navbar />
-  </transition>
+  <Navbar />
   <router-view />
   <Footer />
 </template>

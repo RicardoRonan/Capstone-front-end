@@ -109,7 +109,7 @@
                 @click="toggleModal"
               ></i>
             </button>
-            <button type="btn" @click="deletePost">
+            <button type="btn" @click="deletePost(post.post_id)">
               <i class="fa-solid fa-trash-can"></i>
             </button>
           </td>
@@ -156,28 +156,30 @@
       </tbody>
     </table>
   </section>
-  <!-- <button @click="console">click</button> -->
+  <button @click="console2">click</button>
 </template>
 <script>
+// import { ConcatenationScope } from "webpack";
+
 export default {
+  mounted() {
+    this.$store.dispatch("getPosts");
+    this.$store.dispatch("getUser");
+  },
   computed: {
     posts() {
       return this.$store.state.posts;
     },
+    // post() {
+    //   return this.$store.state.post;
+    // },
     users() {
       return this.$store.state.users;
-    },
-    post() {
-      return this.$store.state.post;
-    },
-    user() {
-      return this.$store.state.user;
     },
   },
 
   data() {
     // const user_id = this.user.user.user_id;
-
     return {
       user_id: "",
       image_title: "",
@@ -188,7 +190,10 @@ export default {
   },
   methods: {
     console() {
-      console.log(this.user.user.user_id);
+      console.log(this.$store.state.user.user_id);
+    },
+    console2() {
+      console.log(this.$store.state.post.post.post_id);
     },
     createpost() {
       this.$store.dispatch("createpost", {
@@ -199,20 +204,13 @@ export default {
         category: this.category,
       });
     },
-    deletePost(id) {
-      this.$store.dispatch("deletePost", id);
-    },
 
     editpost(id) {
       return this.$store.dispatch("editpost", id);
     },
-    // deletepost(id) {
-    //   return this.$store.dispatch("deletepost", id);
-    // },
-  },
-  mounted() {
-    return this.$store.dispatch("getPosts");
-    // return this.$store.dispatch("getUser");
+    deletePost(id) {
+      return this.$store.dispatch("deletePost", { id: id });
+    },
   },
 };
 </script>
