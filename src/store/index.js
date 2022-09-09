@@ -7,7 +7,8 @@ export default createStore({
     post: null,
     posts: null,
     token: null,
-    userPost:[],
+    asc: true,
+    userPost: [],
   },
   mutations: {
     setToken: (state, token) => {
@@ -34,11 +35,11 @@ export default createStore({
   },
   actions: {
     // single post
-    // getPost: async (context, id) => {
-    //   fetch("https://nature-ly-api.herokuapp.com/posts/" + id)
-    //     .then((response) => response.json())
-    //     .then((data) => context.commit("setPost", data));
-    // },
+    getPost: async (context, id) => {
+      fetch("https://nature-ly-api.herokuapp.com/posts/" + id)
+        .then((response) => response.json())
+        .then((data) => context.commit("setPost", data));
+    },
     // login
     login: async (context, payload) => {
       let res = await fetch(`https://nature-ly-api.herokuapp.com/users/login`, {
@@ -99,6 +100,11 @@ export default createStore({
         .then((response) => response.json())
         .then((data) => context.commit("setUser", data));
     },
+    getUsers: async (context) => {
+      fetch("https://nature-ly-api.herokuapp.com/users/")
+        .then((response) => response.json())
+        .then((data) => context.commit("setUsers", data));
+    },
     // add new post
     addPost: async (context, payload) => {
       const { user_id, image_title, caption, image } = payload;
@@ -138,7 +144,7 @@ export default createStore({
 
     // delete user
     deleteUser: async (context, id) => {
-      fetch("https://nature-ly-api.herokuapp.com/users" + id, {
+      fetch("https://nature-ly-api.herokuapp.com/users" + user.id, {
         method: "DELETE",
       }).then(() => context.dispatch("getUsers"));
     },
@@ -163,11 +169,30 @@ export default createStore({
           context.dispatch("getPosts", posts);
         });
     },
-    deletePost: async (context, post) => {
-      fetch("https://nature-ly-api.herokuapp.com/posts" + post.id, {
+    deletePost: async (context, id) => {
+      await fetch("https://nature-ly-api.herokuapp.com/posts/" + id, {
+        // await fetch("http://localhost:3000/cars/" + id, {
         method: "DELETE",
-      }).then(() => context.dispatch("getPost"));
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "x-auth-token": context.state.token,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data);
+          context.dispatch("getPosts");
+        });
     },
+  },
+  sortByCategory: (state) => {
+    state.posts = state.posts.sort((a, b) => {
+      return a.category === b.category ? 0 : a.category < b.category ? -1 : 1;
+    });
+    if (!state.asc) {
+      state.posts.reverse();
+    }
+    state.asc = !state.asc;
   },
 
   plugins: [createPersistedState()],

@@ -20,7 +20,9 @@
     </div>
     <div class="card" id="card">
       <h2 class="text-white" id="welcome">welcome to</h2>
-      <h1 id="title" class="text-white">Nature Untouched</h1>
+      <h1 id="title" class="text-white animate__animated animate__pulse">
+        Nature Untouched
+      </h1>
       <p id="slogan">What's in your Nature?</p>
       <div v-if="user"></div>
       <div v-if="!user" id="button-cont" class="mb-5">

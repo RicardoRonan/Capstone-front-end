@@ -3,7 +3,13 @@
     <h1 class="pt-5">Check out the posts...</h1>
     <div class="shape"></div>
     <div class="search-bar-cont mx-auto">
-      <select id="sort" value="Sortby" class="m-3 mx-auto">
+      <select
+        value="All"
+        class="m-3 mx-auto"
+        v-model="categoryFilter"
+        name="categoryFilter"
+        id="categoryFilter"
+      >
         <option value="flowers" name="flowers" id="">Flower</option>
         <option value="mountains" name="mountains" id="">Mountains</option>
         <option value="waterfall" name="waterfall" id="">Waterfall</option>
@@ -92,7 +98,7 @@ export default {
     left: unset;
   }
 }
-#sort {
+#categoryFilter {
   height: 2rem;
   border-radius: 2rem;
   background-color: var(--light-green);

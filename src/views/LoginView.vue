@@ -32,7 +32,7 @@
             >now
           </p>
         </form>
-        <button @click="console">click</button>
+        <!-- <button @click="console">click</button> -->
         <div v-if="user">
           <h1 id="welcome">welcome {{ user.user.user_name }}</h1>
         </div>

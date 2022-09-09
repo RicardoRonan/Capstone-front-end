@@ -36,45 +36,41 @@
           </div>
           <div class="modal-body">
             <form @submit.prevent="createpost" id="modal-form" class="p-2">
-              <input
-                type="text"
-                id="sku-add"
-                placeholder="Image Title"
-                v-model="image_title"
-              />
-              <input type="text" placeholder="caption" v-model="caption" />
-              <input type="text" placeholder="Image" v-model="image" />
-              <select
-                id="sort"
-                value="Sortby"
-                class="m-3 mx-auto"
-                v-model="category"
-              >
-                <option value="flowers" name="flowers" id="">Flower</option>
-                <option value="mountains" name="mountains" id="">
-                  Mountains
-                </option>
-                <option value="waterfall" name="waterfall" id="">
-                  Waterfall
-                </option>
-                <option value="clouds" name="clouds" id="">Clouds</option>
-                <option value="trees" name="trees" id="">Trees</option>
-              </select>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              >
-                Cancel
-              </button>
-              <button
-                type="btn"
-                class="btn btn-outline-dark"
-                @click="createpost"
-              >
-                Create post
-              </button>
+              <div class="cont">
+                <input
+                  type="text"
+                  id="sku-add"
+                  placeholder="Image Title"
+                  v-model="image_title"
+                />
+                <input type="text" placeholder="caption" v-model="caption" />
+                <input type="text" placeholder="Image" v-model="image" />
+                <select
+                  id="sort"
+                  value="Sortby"
+                  class="m-3 mx-auto"
+                  v-model="category"
+                >
+                  <option value="flowers" name="flowers" id="">Flower</option>
+                  <option value="mountains" name="mountains" id="">
+                    Mountains
+                  </option>
+                  <option value="waterfall" name="waterfall" id="">
+                    Waterfall
+                  </option>
+                  <option value="clouds" name="clouds" id="">Clouds</option>
+                  <option value="trees" name="trees" id="">Trees</option>
+                </select>
+              </div>
+              <div class="button">
+                <button
+                  type="submit"
+                  @click="createpost"
+                  class="btn btn-outline-dark"
+                >
+                  Create post
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -109,54 +105,59 @@
                 @click="toggleModal"
               ></i>
             </button>
-            <button type="btn" @click="deletePost(post.post_id)">
-              <i class="fa-solid fa-trash-can"></i>
+            <button>
+              <a
+                type="btn"
+                @click="this.$store.dispatch('deletePost', post.post_id)"
+              >
+                <i class="fa-solid fa-trash-can"></i
+              ></a>
             </button>
           </td>
         </tr>
       </tbody>
     </table>
-
-    <div class="heading">
-      <h1>USERS ADMIN PAGE</h1>
-    </div>
-    <table class="table dark text-secondary">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">FULL NAME</th>
-          <th scope="col">EMAIL</th>
-          <th scope="col">BILLING ADDRESS</th>
-          <th scope="col">COUNTRY</th>
-          <th scope="col">CART</th>
-          <th scope="col">PHONE</th>
-          <th scope="col">USER ROLE</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user of users" :key="user.user.user_id">
-          <td>{{ user.user_id }}</td>
-          <td>{{ user.user_type }}</td>
-          <td>{{ user.user_name }}</td>
-          <td>{{ user.img }}</td>
-          <td>{{ user.bio }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.password }}</td>
-          <td>
-            <button type="btn" @click="deleteuser">
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
-          </td>
-          <td>
-            <button type="btn">
-              <i class="fa-solid fa-pencil" @click="toggleModal"></i>
-            </button>
-          </td>
-        </tr>
+    <!-- 
+      <div class="heading">
+        <h1>USERS ADMIN PAGE</h1>
+      </div>
+      <table class="table dark text-secondary">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">FULL NAME</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col">BILLING ADDRESS</th>
+            <th scope="col">COUNTRY</th>
+            <th scope="col">CART</th>
+            <th scope="col">PHONE</th>
+            <th scope="col">USER ROLE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="user of users" :key="user.user.user_id">
+            <td>{{ user.user_id }}</td>
+            <td>{{ user.user_type }}</td>
+            <td>{{ user.user_name }}</td>
+            <td>{{ user.img }}</td>
+            <td>{{ user.bio }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.password }}</td>
+            <td>
+              <button type="btn" @click="deleteuser">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </td>
+            <td>
+              <button type="btn">
+                <i class="fa-solid fa-pencil" @click="toggleModal"></i>
+              </button>
+            </td>
+          </tr>
       </tbody>
-    </table>
+    </table> -->
   </section>
-  <button @click="console2">click</button>
+  <button @click="console">click</button>
 </template>
 <script>
 // import { ConcatenationScope } from "webpack";
@@ -170,11 +171,14 @@ export default {
     posts() {
       return this.$store.state.posts;
     },
-    // post() {
-    //   return this.$store.state.post;
-    // },
+    post() {
+      return this.$store.state.post;
+    },
     users() {
       return this.$store.state.users;
+    },
+    user() {
+      return this.$store.state.user;
     },
   },
 
@@ -190,11 +194,11 @@ export default {
   },
   methods: {
     console() {
-      console.log(this.$store.state.user.user_id);
+      console.log(this.$store.state.user.user.user_id);
     },
-    console2() {
-      console.log(this.$store.state.post.post.post_id);
-    },
+    // console2() {
+    //   console.log(this.$store.state.post[0].post_id);
+    // },
     createpost() {
       this.$store.dispatch("createpost", {
         user_id: this.user.user.user_id,
@@ -215,6 +219,14 @@ export default {
 };
 </script>
 <style scoped>
+.cont {
+  display: flex;
+  flex-direction: column;
+}
+.button {
+  display: flex;
+  flex-direction: column;
+}
 #admin {
   background-color: var(--dark);
   color: white;
